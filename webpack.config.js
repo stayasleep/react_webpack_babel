@@ -3,8 +3,15 @@
  * */
 
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
+	template: './client/index.html',
+	filename: 'index.html',
+	inject: 'body'
+})
+
 module.exports = {
-	entry: './index.js',
+	entry: './client/index.js',
 	output: {
 		path: path.resolve('dist'),
 		filename: 'bundle.js'
@@ -16,5 +23,8 @@ module.exports = {
             //test for jsx files...these two lines can be combined into one regex above
 			{test: /\.jsx$/, loader: 'babel-loader', exclude: /node_modules/}
 		]
-	}
+	},
+	//line needed for html-webpack-plugin
+	plugins: [HtmlWebpackPluginConfig]
+
 };
